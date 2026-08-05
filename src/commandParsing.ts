@@ -7,7 +7,7 @@ import {
   findVersion,
   displayCommand,
   findEnvironment,
-} from './dataCollection';
+} from './dataCollection.js';
 
 export function parseCommand(command: string) {
   switch (command) {
