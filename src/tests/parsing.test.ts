@@ -5,10 +5,10 @@ import {
   findMemory,
   findEnvironment,
   displayCommand,
-} from './dataCollection';
-import { parseCommand } from './commandParsing';
+} from '../dataCollection';
+import { parseCommand } from '../commandParsing.js';
 
-jest.mock('./dataCollection');
+jest.mock('../dataCollection.js');
 describe('Testing parse command funciton', () => {
   test('Version', () => {
     parseCommand('version');
