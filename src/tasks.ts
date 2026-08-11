@@ -1,11 +1,33 @@
 import fs from 'node:fs/promises';
+import path from 'node:path';
+// import { fileURLToPath } from 'node:url';
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// import fs from 'node:fs/promises';
+
+// const fileName = new URL('./tasks.json', import.meta.url);
+
+// const fileName = path.join(__dirname, 'tasks.json');
+const fileName = path.join(process.cwd(), 'dist', 'tasks.json');
 export type Task = {
   id: number;
   name: string;
   type: 'Completed' | 'Pending';
 };
 
-const fileName = 'tasks.json';
+export async function saveTasks(tasks: Task[]) {
+  try {
+    const jsonString = JSON.stringify(tasks);
+    await writeToFile(tasks);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+    console.log(error);
+  }
+}
+
+// const fileName = path.join(process.cwd(), 'tasks.json');
 
 export async function readFromFile(file: string = fileName): Promise<Task[]> {
   try {
@@ -45,9 +67,12 @@ export async function addTask(t1: Task) {
 
 export async function listTasks() {
   const tasks = await readFromFile();
-  if (tasks.length == 0) console.log('No Tasks');
-  else {
+  if (tasks.length == 0) {
+    console.log('No Tasks');
+    return [];
+  } else {
     console.log(tasks);
+    return tasks;
   }
 }
 
