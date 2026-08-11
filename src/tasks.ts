@@ -17,13 +17,14 @@ export type Task = {
 
 export async function saveTasks(tasks: Task[]) {
   try {
-    const jsonString = JSON.stringify(tasks);
+    // const jsonString = JSON.stringify(tasks);
     await writeToFile(tasks);
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error(error.message);
     }
     console.log(error);
+    throw error;
   }
 }
 
@@ -68,10 +69,9 @@ export async function addTask(t1: Task) {
 export async function listTasks() {
   const tasks = await readFromFile();
   if (tasks.length == 0) {
-    console.log('No Tasks');
+    // console.log('No Tasks');
     return [];
   } else {
-    console.log(tasks);
     return tasks;
   }
 }
