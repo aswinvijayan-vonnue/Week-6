@@ -7,7 +7,7 @@ import {
   findVersion,
   displayCommand,
   findEnvironment,
-} from './dataCollection';
+} from './dataCollection.js';
 
 export function parseCommand(command: string) {
   switch (command) {
@@ -30,11 +30,15 @@ export function parseCommand(command: string) {
       displayCommand();
   }
 }
+let rl: readline.Interface;
 
-const rl = readline.createInterface({
-  input: stdin,
-  output: stdout,
-});
+if (process.env.NODE_ENV !== 'test') {
+  rl = readline.createInterface({
+    input: stdin,
+    output: stdout,
+  });
+  waitForInput();
+}
 
 function waitForInput() {
   console.log('\n');
@@ -48,7 +52,4 @@ function commandHandling(command: string) {
     parseCommand(val);
     waitForInput();
   }
-}
-if (process.env.NODE_ENV !== 'test') {
-  waitForInput();
 }
