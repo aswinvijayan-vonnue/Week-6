@@ -1,6 +1,6 @@
 import os from 'node:os';
 import { cwd } from 'node:process';
-import { toGB } from './utils';
+import { toGB } from './utils.js';
 export function findOsType() {
   const osType = os.type();
   if (osType === 'Darwin') return 'macOS';
